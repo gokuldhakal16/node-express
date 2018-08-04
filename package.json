@@ -1,0 +1,22 @@
+{
+  "name": "node-express",
+  "version": "1.0.0",
+  "description": "Node.js & Express",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gokuldhakal16/node-express.git"
+  },
+  "author": "Gokul Dhakal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gokuldhakal16/node-express/issues"
+  },
+  "homepage": "https://github.com/gokuldhakal16/node-express#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
