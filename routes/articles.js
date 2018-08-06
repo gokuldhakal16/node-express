@@ -50,7 +50,7 @@ router.get('/edit/:id', ensureAuthenticated, (req, res)=>{
     Article.findById(req.params.id, (err, article)=>{
       if(article.author != req.user._id){
         req.flash('danger', 'Not Authorized')
-        res.redirect('/')
+        return res.redirect('/')
       }
       res.render('edit_article', {
         title:'Edit Article',
@@ -103,16 +103,16 @@ router.delete('/:id', (req, res) => {
 });
 
 // Get Single Article
-router.get('/:id', (req, res) => {
-    Article.findById(req.params.id, (err, article) => {
-        User.findById(article.author, (err, user) => {
-            res.render('article', {
-                article: article,
-                author: user.name
-            });
+router.get('/:id', (req, res)=>{
+    Article.findById(req.params.id, (err, article)=>{
+      User.findById(article.author, (err, user)=>{
+        res.render('article', {
+          article:article,
+          author: user.name
         });
+      });
     });
-});
+  });
 
 // Access Control
 function ensureAuthenticated(req, res, next) {

@@ -10,7 +10,7 @@ const config = require('./config/database');
 
 
 // Mongoose Database Connection
-mongoose.connect(config.database,{ useNewUrlParser: true });
+mongoose.connect(config.database, { useNewUrlParser: true });
 let db = mongoose.connection;
 
 // Check connection
@@ -61,7 +61,22 @@ app.use(function (req, res, next) {
 });
 
 // Express Validator Middleware
-app.use(expressValidator())
+app.use(expressValidator({
+    errorFormatter: (param, msg, value) => {
+        var namespace = param.split('.')
+            , root = namespace.shift()
+            , formParam = root;
+
+        while (namespace.length) {
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param: formParam,
+            msg: msg,
+            value: value
+        };
+    }
+}));
 
 // Passport Config
 require('./config/passport')(passport)
@@ -69,10 +84,10 @@ require('./config/passport')(passport)
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('*', function(req, res, next){
+app.get('*', function (req, res, next) {
     res.locals.user = req.user || null;
     next();
-  });
+});
 
 // Home Route
 app.get('/', (req, res) =>
