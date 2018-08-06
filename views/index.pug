@@ -2,5 +2,6 @@ extends layout
 block content
     h3 Hello world #{name}   
     ul
-        each val in articles
-            li= val.title
+        each article in articles
+            li.list-group-item
+                a(href="/articles/"+article._id)= article.title
